@@ -1,0 +1,358 @@
+<?php   
+
+
+
+/*class UserInsert extends Database
+	{
+		public function insertUser($a, $s, $d, $f, $g){
+         
+
+			$connect = $this->connect();
+         $result = mysqli_query($connect, "select * from users where email = '$a'");
+         $numRows = $result->num_rows;
+         if ($numRows > 0) {
+            $msg = "This email is already used";
+         }else{
+			mysqli_query($connect, "insert into users(email,fname, lname, birth_date, password) values('$a', '$s', '$d', '$f', '$g')") or die(mysqli_error($connect));}
+		}
+
+	}
+
+   */
+ ?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+   <script>
+      $(document).ready(function() {
+         $("#register").click(function(){
+            $.ajax({
+            type: "POST",
+            url: "reg.php",
+            data:{
+               email: $("#form_email").val(),
+               fname: $("#form_fname").val(),
+               lname: $("#form_sname").val(),
+               birth_date: $("#form_bdate").val(),
+               password: $("#form_password").val()
+            }
+          });
+
+        }); 
+      });
+   </script>
+	<!-- <link rel="stylesheet" href="regstyle.css"> -->
+	<title>Document</title>
+<!--    <script>
+   $(document).ready(function() {
+      $("form").submit(function(event) {
+         event.preventDefault();
+         var fname = $("#form_fname").val();
+         var lname = $("#")
+      })
+   })
+</script> -->
+
+
+	<style>
+		body
+{
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	background: url(college.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.container
+{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width: 700px;
+	background: #fff;
+	padding: 45px;
+	box-sizing: border-box;
+	border :1px solid rgba(0,0,0,.1);
+	box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+.container h1
+{
+	text-align: center;
+	margin: 0 0 40px;
+	padding: 0;
+	color: rgb(66,133,244);
+	letter-spacing: 2px;
+}
+.container input
+{
+	padding: 5px;
+	margin-bottom: 30px;
+	width: 55%;
+	box-sizing: border-box;
+	box-shadow: none;
+	outline: none;
+	border:none;
+	border-bottom: 2px solid #999;
+}
+.container input[type="submit"]
+{
+	border-radius: 25px;
+	font-size: 20px;
+	height: 40px;
+	cursor : pointer;
+	background: rgb(66,133,244);
+	color: #fff;
+	margin-bottom: 0;
+}
+.container input[type="submit"]:hover
+{
+	background: #34F458;
+	color: #fff;
+}
+.container form div
+{
+	position: relative;
+}
+.container form div label
+{
+	position: absolute;
+	top: 3px;
+	pointer-events: none;
+	left: 0;
+	transition: .5s;
+}
+.container input:focus ~label,
+.container input:valid ~label
+{
+	left: 0;
+	top: -20px;
+	color: rgb(66,133,244);
+	font-size: 12px;
+	font-weight: bold;
+}
+.container input:focus,
+.container input:valid
+{
+	border-bottom: 2px solid rgb(66,133,244);
+}
+.error_form
+{
+	top: 12px;
+	color: rgb(216, 15, 15);
+    font-size: 15px;
+    font-family: Helvetica;
+}
+	</style>
+</head>
+<body>
+	<header><a href="index.php" style="text-decoration: none; color: black"><h1>Online Shop</h1></a> <p style="float: right;"><a href="login.php"></a></p></header>
+	<div class="reg-page">
+		<h3>Registration</h3>
+
+		<form method="POST" id="registration_form">
+			
+
+			<div>
+				<input type="text" id="form_fname" name="fname" required="">
+				<span class="error_form" id="fname_error_message"></span>
+				<label>
+					First Name
+				</label>	
+			</div>
+			<div>
+				<input type="text" id="form_sname" name="lname" required="">
+				<span class="error_form" id="sname_error_message"></span>
+				<label>
+					Second Name
+				</label>	
+			</div>
+			<div>
+				<input type="email" id="form_email" name="email" required="">
+				<span class="error_form" id="email_error_message"></span>
+				<label>Email id</label>	
+			</div>
+			<div>
+				<input type="date" id="form-bdate" name="dob" requiered="">
+				<span class="error_form" id="dob_error_message"></span>
+				<label>Date of birth</label>
+			</div>
+			<div>
+				<input type="password" id="form_password" name="pass" required="">
+				<span class="error_form" id="password_error_message"></span>
+				<label>Password</label>	
+			</div>
+			<div>
+				<input type="password" id="form_retype_password" name="repass" required="">
+				<span class="error_form" id="retype_password_error_message"></span>
+				<label>Re-Enter Password</label>	
+			</div>
+         <button id="register" value="Register" name="register">Register</button>
+			<!-- <input type="submit" value="Register" name="register"> -->			
+		</form>
+	</div><br><br>	<br>
+   
+   <p>Have an account? <a href="authorization.php">Authorize</a></p> 
+   
+   
+
+   
+   
+   
+		<script type="text/javascript">
+      $(function() {
+
+         $("#fname_error_message").hide();
+         $("#sname_error_message").hide();
+         $("#email_error_message").hide();
+         $("#dob_error_message").hide();
+         $("#password_error_message").hide();
+         $("#retype_password_error_message").hide();
+
+         var error_fname = false;
+         var error_sname = false;
+         var error_email = false;
+         var error_bdate = false;
+         var error_password = false;
+         var error_retype_password = false;
+
+
+         $("#form_fname").focusout(function(){
+            check_fname();
+         });
+         $("#form_sname").focusout(function() {
+            check_sname();
+         });
+         $("#form_email").focusout(function() {
+            check_email();
+         });
+         $("#form_bdate").focusout(function() {
+            check_bdate();
+         });
+         $("#form_password").focusout(function() {
+            check_password();
+         });
+         $("#form_retype_password").focusout(function() {
+            check_retype_password();
+         });
+
+         function check_fname() {
+            var pattern = /^[a-zA-Z]*$/;
+            var fname = $("#form_fname").val();
+            if (pattern.test(fname) && fname !== '') {
+               $("#fname_error_message").hide();
+               $("#form_fname").css("border-bottom","2px solid #34F458");
+            }else {
+               $("#fname_error_message").html("Should contain only Characters");
+               $("#fname_error_message").show();
+               $("#form_fname").css("border-bottom","2px solid #F90A0A");
+               error_fname = true;
+            }
+         }
+
+         function check_sname() {
+            var pattern = /^[a-zA-Z]*$/;
+            var sname = $("#form_sname").val()
+            if (pattern.test(sname) && sname !== '') {
+               $("#sname_error_message").hide();
+               $("#form_sname").css("border-bottom","2px solid #34F458");
+            } else {
+               $("#sname_error_message").html("Should contain only Characters");
+               $("#sname_error_message").show();
+               $("#form_sname").css("border-bottom","2px solid #F90A0A");
+               error_fname = true;
+            }
+         }
+
+         function check_password() {
+            var password_length = $("#form_password").val().length;
+            if (password_length < 8) {
+               $("#password_error_message").html("Atleast 8 Characters");
+               $("#password_error_message").show();
+               $("#form_password").css("border-bottom","2px solid #F90A0A");
+               error_password = true;
+            } 
+            else {
+               $("#password_error_message").hide();
+               $("#form_password").css("border-bottom","2px solid #34F458");
+            }
+         }
+
+         function check_retype_password() {
+            var password = $("#form_password").val();
+            var retype_password = $("#form_retype_password").val();
+            if (password !== retype_password) {
+               $("#retype_password_error_message").html("Passwords Did not Matched");
+               $("#retype_password_error_message").show();
+               $("#form_retype_password").css("border-bottom","2px solid #F90A0A");
+               error_retype_password = true;
+            } else {
+               $("#retype_password_error_message").hide();
+               $("#form_retype_password").css("border-bottom","2px solid #34F458");
+            }
+         }
+
+         function check_email() {
+         	var pattern = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            var email = $("#form_email").val();
+
+            if (pattern.test(email) && email !== '') {
+               $("#email_error_message").hide();
+               $("#form_email").css("border-bottom","2px solid #34F458");
+            } else {
+               $("#email_error_message").html("Invalid Email");
+               $("#email_error_message").show();
+               $("#form_email").css("border-bottom","2px solid #F90A0A");
+               error_email = true;
+            }
+         }
+
+         function check_bdate() {
+         	var bdate = $("#form_bdate").val();
+         	if (bdate !== '') {
+         		$("#dob_error_message").hide();
+         		$("#form_bdate").css("border-bottom","2px solid #34F458");
+         	}else{
+         		$("#dob_error_message").html("Should type your birth date");
+         		$("#dob_error_message").show();
+         		$("#form_bdate").css("border-bottom","2px solid #F90A0A");
+         		error_bdate = true;
+         	}
+         }
+
+         $("#registration_form").submit(function() {
+            error_fname = false;
+            error_sname = false;
+            error_email = false;
+            error_bdate = false;
+            error_password = false;
+            error_retype_password = false;
+
+            check_fname();
+            check_sname();
+            check_email();
+            check_bdate();
+            check_password();
+            check_retype_password();
+
+            if (error_fname === false && error_sname === false && error_email === false && error_password === false && error_retype_password === false) {
+               alert("Registration Successfull");
+               return true;
+            } else {
+               alert("Please Fill the form Correctly");
+               return false;
+            }
+
+         });
+      });
+   </script>
+
+
+
+</body>
+</html>
